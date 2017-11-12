@@ -36,7 +36,7 @@ class SideMenu extends React.Component<MenuProps> {
   }
 
   selectFeed(event) {
-
+    console.log(event);
   }
 
   render() {
