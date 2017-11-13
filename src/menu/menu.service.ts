@@ -15,7 +15,7 @@ export default class MenuService {
     return response.data;
   }
 
-  static async findEntries(categoryId:string, feedId: string): Promise<Array<Entry>> {
+  static async findEntries(categoryId: number, feedId: number): Promise<Array<Entry>> {
     const response = await axios.get(`categories/${categoryId}/feeds/${feedId}/entries`);
     return response.data;
   }

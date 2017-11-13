@@ -1,5 +1,3 @@
-import Category from './category';
-
 export default interface Feed {
   id: number;
   title: string;
@@ -7,5 +5,5 @@ export default interface Feed {
   link: string;
   url: string;
   failedUpdate: boolean;
-  category: Category;
+  category_id: number;
 }

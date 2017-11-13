@@ -1,0 +1,10 @@
+.appBar {
+  position: 'absolute';
+  width: calc(100% - 240px) !important;
+  margin-left: 240px;
+}
+
+.entries {
+  width: calc(100% - 240px) !important;
+  margin-left: 240px;
+}

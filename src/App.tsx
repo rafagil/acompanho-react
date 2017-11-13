@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from './reducers';
 import Menu from './menu/menu';
+import Entries from './entries/entries';
 import axios from 'axios';
 import './App.css';
 import 'antd/dist/antd.css';
@@ -16,6 +17,7 @@ class App extends React.Component<{}, {}> {
       <Provider store={createStore(reducers)}>
         <div className="App">
           <Menu />
+          <Entries />
         </div>
       </Provider>
     );
