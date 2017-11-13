@@ -10,7 +10,7 @@ export default class MenuService {
     return response.data;
   }
 
-  static async findFeeds(categoryId: string): Promise<Array<Feed>> {
+  static async findFeeds(categoryId: number): Promise<Array<Feed>> {
     const response = await axios.get(`categories/${categoryId}/feeds`);
     return response.data;
   }
