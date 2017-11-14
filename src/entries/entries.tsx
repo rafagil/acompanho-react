@@ -23,7 +23,6 @@ class Entries extends React.Component<EntriesProps> {
 
   showEntry(entry) {
     this.props.selectEntry(entry);
-
   }
 
   async componentWillReceiveProps(nextProps) {
