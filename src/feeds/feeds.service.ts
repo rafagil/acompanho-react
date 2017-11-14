@@ -1,6 +1,5 @@
 import Category from '../models/category';
 import Feed from '../models/feed';
-import Entry from '../models/entry';
 import axios from 'axios';
 
 export default class MenuService {
@@ -12,11 +11,6 @@ export default class MenuService {
 
   static async findFeeds(categoryId: number): Promise<Array<Feed>> {
     const response = await axios.get(`categories/${categoryId}/feeds`);
-    return response.data;
-  }
-
-  static async findEntries(categoryId: number, feedId: number): Promise<Array<Entry>> {
-    const response = await axios.get(`categories/${categoryId}/feeds/${feedId}/entries`);
     return response.data;
   }
 }

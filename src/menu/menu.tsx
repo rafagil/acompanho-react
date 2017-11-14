@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Category from '../models/category';
 import Feed from '../models/feed';
-import MenuService from './menu.service';
+import FeedsService from '../feeds/feeds.service';
 import { updateCategories, updateFeeds, selectFeed } from './menu.actions';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
@@ -31,7 +31,7 @@ class SideMenu extends React.Component<MenuProps> {
   }
 
   async componentDidMount() {
-    const categories = await MenuService.findCategories();
+    const categories = await FeedsService.findCategories();
     this.props.updateCategories(categories);
   }
 
@@ -49,7 +49,7 @@ class SideMenu extends React.Component<MenuProps> {
     categoryState.isOpen = !categoryState.isOpen;
     categoryState.isLoading = true;
     if (this.fetchedFeeds.indexOf(categoryId) < 0) {
-      const feeds = await MenuService.findFeeds(categoryId);
+      const feeds = await FeedsService.findFeeds(categoryId);
       this.props.updateFeeds(categoryId, feeds);
       this.fetchedFeeds = [...this.fetchedFeeds, categoryId];
     }
@@ -76,7 +76,7 @@ class SideMenu extends React.Component<MenuProps> {
         <div>
           <List className="menu">
             {categories.map(category => (
-              <div>
+              <div key={`cat_${category.id}`}>
                 <ListItem button onClick={() => this.findFeeds(category)}>
                   <ListItemText primary={category.name} />
                   {this.getCategoryState(category.id).isOpen ? <ExpandLess /> : <ExpandMore />}

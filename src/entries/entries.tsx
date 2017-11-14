@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { History } from 'history';
 import Typography from 'material-ui/Typography';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Feed from '../models/feed';
 import Entry from '../models/entry';
-import MenuService from '../menu/menu.service';
+import EntriesService from './entries.service';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import { updateEntries, selectEntry } from './entries.actions';
 import EntryViewer from './entry-viewer';
@@ -15,6 +16,7 @@ interface EntriesProps {
   feed: Feed;
   entries: Array<Entry>;
   classes: any;
+  history: History;
   updateEntries(entries: Array<Entry>);
   selectEntry(entry: Entry);
 }
@@ -22,13 +24,15 @@ interface EntriesProps {
 class Entries extends React.Component<EntriesProps> {
 
   showEntry(entry) {
+    const { feed } = this.props;
     this.props.selectEntry(entry);
+    this.props.history.push(`/categories/${feed.category_id}/feeds/${feed.id}/entries/${entry.id}`);
   }
 
   async componentWillReceiveProps(nextProps) {
     const feed = nextProps.feed;
     if (feed && (!this.props.feed || feed.id != this.props.feed.id)) {
-      this.props.updateEntries(await MenuService.findEntries(feed.category_id, feed.id));
+      this.props.updateEntries(await EntriesService.list(feed.category_id, feed.id));
     }
   }
 

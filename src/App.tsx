@@ -20,7 +20,7 @@ class App extends React.Component<{}, {}> {
           <div className="App">
             <Menu />
             <Route exact path="/" component={Entries} />
-            <Route exact path="/view/:id" component={EntryViewer} />
+            <Route exact path="/categories/:categoryId/feeds/:feedId/entries/:id" component={EntryViewer} />
           </div>
         </Router>
       </Provider>

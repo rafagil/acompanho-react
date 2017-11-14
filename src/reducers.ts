@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import CategoriesReducer from './menu/categories.reducer';
-import SelectedFeedReducer from './menu/selected-feed.reducer';
+import CategoriesReducer from './feeds/categories.reducer';
+import SelectedFeedReducer from './feeds/selected-feed.reducer';
 import EntriesReducer from './entries/entries.reducer';
 import SelectedEntryReducer from './entries/selected-entry.reducer';
 
