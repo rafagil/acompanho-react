@@ -4,12 +4,13 @@ import { History } from 'history';
 import Typography from 'material-ui/Typography';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+import IconButton from 'material-ui/IconButton';
+import RefreshIcon from 'material-ui-icons/Refresh';
 import Feed from '../models/feed';
 import Entry from '../models/entry';
 import EntriesService from './entries.service';
 import List, { ListItem, ListItemText } from 'material-ui/List';
-import { updateEntries, selectEntry } from './entries.actions';
-import EntryViewer from './entry-viewer';
+import { updateEntries } from './entries.actions';
 import './entries.css';
 
 interface EntriesProps {
@@ -18,14 +19,12 @@ interface EntriesProps {
   classes: any;
   history: History;
   updateEntries(entries: Array<Entry>);
-  selectEntry(entry: Entry);
 }
 
 class Entries extends React.Component<EntriesProps> {
 
   showEntry(entry) {
     const { feed } = this.props;
-    this.props.selectEntry(entry);
     this.props.history.push(`/categories/${feed.category_id}/feeds/${feed.id}/entries/${entry.id}`);
   }
 
@@ -36,24 +35,40 @@ class Entries extends React.Component<EntriesProps> {
     }
   }
 
+  async refreshFeed(feed: Feed) {
+    try {
+      await EntriesService.refresh(feed);
+    } catch (e) {
+      console.log(e);
+      alert('Failed to update. Please, try again later.');
+    }
+  }
+
   render() {
+    const { feed, entries } = this.props;
     return (
       <div className="entries">
         <AppBar className="appBar">
           <Toolbar>
-            <Typography type="title" color="inherit" noWrap>
-              {this.props.feed ? this.props.feed.title : 'No feed selected'}
+            <Typography type="title" className="title" color="inherit" noWrap>
+              {feed ? feed.title : 'No feed selected'}
             </Typography>
+            {feed ?
+              <IconButton onClick={() => this.refreshFeed(feed)} color="contrast">
+                <RefreshIcon />
+              </IconButton>
+              : null}
           </Toolbar>
         </AppBar>
-        <List>
-          {this.props.entries ? this.props.entries.map(entry => (
-            <ListItem key={`ent_${entry.id}`} button onClick={() => this.showEntry(entry)}>
-              <ListItemText primary={entry.title} />
-            </ListItem>
-          )) : null}
-        </List>
-        <EntryViewer />
+        <div className="entriesContent">
+          <List>
+            {entries ? entries.map(entry => (
+              <ListItem key={`ent_${entry.id}`} button onClick={() => this.showEntry(entry)}>
+                <ListItemText primary={entry.title} secondary={entry.summary} />
+              </ListItem>
+            )) : null}
+          </List>
+        </div>
       </div>
     )
   }
@@ -64,4 +79,4 @@ const mapStateToProps = state => ({
   entries: state.entries
 })
 
-export default connect(mapStateToProps, { updateEntries, selectEntry })(Entries);
+export default connect(mapStateToProps, { updateEntries })(Entries);

@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { History } from 'history';
+import { withRouter } from 'react-router';
 import Category from '../models/category';
 import Feed from '../models/feed';
 import FeedsService from '../feeds/feeds.service';
@@ -13,6 +15,7 @@ import Collapse from 'material-ui/transitions/Collapse';
 import './menu.css';
 
 interface MenuProps {
+  history: History;
   categories: Array<Category>;
   selectedCategory: Category;
   updateCategories(categories: Category[]);
@@ -67,6 +70,7 @@ class SideMenu extends React.Component<MenuProps> {
 
   selectFeed(feed: Feed) {
     this.props.selectFeed(feed);
+    this.props.history.push('/');
   }
 
   render() {
@@ -102,4 +106,4 @@ const mapStateToProps = state => ({
   categories: state.categories,
 });
 
-export default connect(mapStateToProps, { updateCategories, updateFeeds, selectFeed })(SideMenu);
+export default withRouter(connect(mapStateToProps, { updateCategories, updateFeeds, selectFeed })(SideMenu));
