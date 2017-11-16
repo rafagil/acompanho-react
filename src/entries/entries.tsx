@@ -38,6 +38,7 @@ class Entries extends React.Component<EntriesProps> {
   async refreshFeed(feed: Feed) {
     try {
       await EntriesService.refresh(feed);
+      this.props.updateEntries(await EntriesService.list(feed.category_id, feed.id));
     } catch (e) {
       console.log(e);
       alert('Failed to update. Please, try again later.');

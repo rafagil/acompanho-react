@@ -5,13 +5,16 @@ import { withRouter } from 'react-router';
 import Category from '../models/category';
 import Feed from '../models/feed';
 import FeedsService from '../feeds/feeds.service';
-import { updateCategories, updateFeeds, selectFeed } from './menu.actions';
+import { updateCategories, updateFeeds, selectFeed } from '../feeds/feeds.actions';
+import { showFeedDialog } from '../feeds/feeds.actions';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import Collapse from 'material-ui/transitions/Collapse';
+import Button from 'material-ui/Button';
+import FeedFormDialog from '../feeds/feed.form.dialog';
 import './menu.css';
 
 interface MenuProps {
@@ -21,6 +24,7 @@ interface MenuProps {
   updateCategories(categories: Category[]);
   updateFeeds(categoryId: number, feeds: Feed[]);
   selectFeed(feed: Feed);
+  showFeedDialog();
 }
 
 class SideMenu extends React.Component<MenuProps> {
@@ -74,7 +78,7 @@ class SideMenu extends React.Component<MenuProps> {
   }
 
   render() {
-    const { categories } = this.props;
+    const { categories, showFeedDialog } = this.props;
     return (
       <Drawer type="permanent">
         <div>
@@ -96,6 +100,8 @@ class SideMenu extends React.Component<MenuProps> {
               </div>
             ))}
           </List>
+          <Button onClick={() => showFeedDialog()} color="primary">Add feed</Button>
+          <FeedFormDialog />
         </div>
       </Drawer>
     );
@@ -106,4 +112,11 @@ const mapStateToProps = state => ({
   categories: state.categories,
 });
 
-export default withRouter(connect(mapStateToProps, { updateCategories, updateFeeds, selectFeed })(SideMenu));
+const actionCreators = {
+  updateCategories,
+  updateFeeds,
+  selectFeed,
+  showFeedDialog
+}
+
+export default withRouter(connect(mapStateToProps, actionCreators)(SideMenu));
