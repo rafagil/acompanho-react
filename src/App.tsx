@@ -10,7 +10,7 @@ import axios from 'axios';
 import './App.css';
 
 axios.defaults.baseURL = 'https://acompanho.azurewebsites.net/api/';
-axios.defaults.headers['x-ms-client-principal-id'] = '10208635091468660'; //DEBUG ENV ONLY!!!
+//axios.defaults.headers['x-ms-client-principal-id'] = '10208635091468660'; //DEBUG ENV ONLY!!!
 
 class App extends React.Component<{}, {}> {
   render() {
