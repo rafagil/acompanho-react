@@ -74,7 +74,7 @@ class SideMenu extends React.Component<MenuProps> {
 
   selectFeed(feed: Feed) {
     this.props.selectFeed(feed);
-    this.props.history.push('/');
+    this.props.history.push(`/categories/${feed.category_id}/feeds/${feed.id}`);
   }
 
   render() {

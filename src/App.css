@@ -1,0 +1,12 @@
+.mainContent {
+    width: calc(100% - 240px) !important;
+    margin-left: 240px;
+    padding:15px;
+}
+
+.progressBar { 
+    width: 100%;
+    z-index: 2000; 
+    position: fixed !important;
+    top: 0;
+} 
