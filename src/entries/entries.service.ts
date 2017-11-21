@@ -13,7 +13,7 @@ export default class EntriesService {
     return response.data;
   }
 
-  static async refresh(feed: Feed) {
+  static async refresh(feed: Feed): Promise<Array<Entry>> {
     const response = await axios.post(`categories/${feed.category_id}/feeds/${feed.id}/entries`);
     return response.data;
   }

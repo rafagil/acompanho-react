@@ -41,7 +41,7 @@ class EntryViewer extends React.Component<EntryProps> {
                 <ChevronLeft />
               </IconButton>
               <Typography type="title" color="inherit" noWrap>
-                {entry.title}
+                <a href={entry.link} target="_blank" className="entryTitle">{entry.title}</a>
               </Typography>
             </Toolbar>
           </AppBar>

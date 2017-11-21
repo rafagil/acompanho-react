@@ -17,3 +17,8 @@
 .title {
   flex: 1
 }
+
+.entryTitle {
+  color: white;
+  text-decoration: none;
+}

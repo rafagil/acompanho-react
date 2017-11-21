@@ -8,6 +8,7 @@ import Home from './home/home';
 import Entries from './entries/entries';
 import EntryViewer from './entries/entry-viewer';
 import ProgressBar from './components/progress.bar';
+import FeedUpdater from './feeds/feed.updater';
 import axios from 'axios';
 import './App.css';
 
@@ -25,6 +26,7 @@ class App extends React.Component<{}, {}> {
             <Route exact path="/" component={Home} />
             <Route exact path="/categories/:categoryId/feeds/:id" component={Entries} />
             <Route exact path="/categories/:categoryId/feeds/:feedId/entries/:id" component={EntryViewer} />
+            <FeedUpdater />
           </div>
         </Router>
       </Provider>
